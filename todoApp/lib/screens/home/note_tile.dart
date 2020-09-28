@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:todoApp/models/global.dart';
+import 'package:todoApp/models/note.dart';
+
+class NoteTile extends StatelessWidget {
+
+  final Note note;
+  NoteTile( {this.note} );
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+        Divider(
+            color: Colors.white,
+          ),
+          Text(
+            note.title,
+            style: redTodoTitle,
+            ),
+          SizedBox(height: 5.0),
+          Text(
+            note.mainPart,
+            style: redText,
+            ),
+        ],
+      ),
+    );
+  }
+}

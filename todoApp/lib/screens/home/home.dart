@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todoApp/models/global.dart';
 import 'package:todoApp/models/note.dart';
 import 'package:todoApp/models/user.dart';
 import 'package:todoApp/screens/home/new_note_form.dart';
@@ -29,8 +30,15 @@ class Home extends StatelessWidget {
     return StreamProvider<List<Note>>.value(
       value: databaseService.notes,
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.brown[400],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30)
+            ),
+          ),
+          toolbarHeight: 200.0,
+          backgroundColor: redColor,
           title: Text('Notes'),
           elevation: 0.0,
           actions: [
@@ -52,6 +60,7 @@ class Home extends StatelessWidget {
          ],
         ),
         body: Container(
+          color: darkGreyColor,
           child: NoteList(),
         ),
       ),

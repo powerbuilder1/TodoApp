@@ -25,11 +25,19 @@ class _NoteFormState extends State<NoteForm> {
       key: _formKey,
       child: Column(
         children: [
+          Text('Add a new note'),
+          SizedBox(height: 20.0),
           TextFormField(
+            decoration: InputDecoration(
+              labelText: 'Title',
+            ),
             validator: (val) => val.isEmpty ? 'Please enter a title' : null,
             onChanged: (val) => setState(() => title = val)
           ),
           TextFormField(
+            decoration: InputDecoration(
+              labelText: 'main note',
+            ),
             validator: (val) => val.isEmpty ? 'Please enter a note' : null,
             onChanged: (val) => setState(() => mainPart = val)
           ),
