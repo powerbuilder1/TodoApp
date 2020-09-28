@@ -21,6 +21,7 @@ class DatabaseService {
       return Note(
         title: doc.data()['title'],
         mainPart: doc.data()['mainPart'],
+        id: doc.id,
       );
     }).toList();
   }
@@ -39,4 +40,12 @@ class DatabaseService {
       'mainPart': note.mainPart,
     });
   }
+
+  // remove Note
+  Future removeNote(String id) async {
+    return userCollection.doc(uid).collection('notes').doc(id).delete().then((_) {
+      print('success!');
+    });
+  }
+
 }
