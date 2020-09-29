@@ -59,3 +59,8 @@ TextStyle redText = new TextStyle(
   color: redColor, 
   fontSize: 20
 );
+
+TextStyle slideText = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.w700,
+);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todoApp/models/note.dart';
 import 'package:provider/provider.dart';
 import 'package:todoApp/models/user.dart';
+import 'package:todoApp/screens/home/modules/slidingBackground.dart';
 import 'package:todoApp/screens/home/note_tile.dart';
 import 'package:todoApp/services/database.dart';
 
@@ -22,12 +23,29 @@ class _NoteListState extends State<NoteList> {
       return ListView.builder(
         itemCount: notes.length,
         itemBuilder: (context, index) {
-          return Dismissible(
-            key: Key(notes[index].id),
-            onDismissed: (direction) {
-              DatabaseService(uid: user.uid).removeNote(notes[index].id);
-            },
-            child: NoteTile(note: notes[index])
+          return Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: Divider(
+                  height: 60.0,
+                  color: Colors.white,
+                ),
+              ),
+              Dismissible(
+              key: Key(notes[index].id),
+              background: slideRightBackground(),
+              secondaryBackground: slideLeftBackground(),
+              onDismissed: (direction) {
+                if(direction == DismissDirection.endToStart){
+                  DatabaseService(uid: user.uid).removeNote(notes[index].id);
+                } else if(direction == DismissDirection.startToEnd) {
+                  print('Edit');
+                }
+              },
+              child: NoteTile(note: notes[index])
+            ),
+            ]
           );
         }
       );

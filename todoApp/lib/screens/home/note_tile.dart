@@ -10,11 +10,11 @@ class NoteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.3),
+      alignment: Alignment.topLeft,
+      width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
-        Divider(
-            color: Colors.white,
-          ),
           Text(
             note.title,
             style: redTodoTitle,
