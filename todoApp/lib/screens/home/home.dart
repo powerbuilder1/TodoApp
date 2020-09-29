@@ -7,30 +7,32 @@ import 'package:todoApp/screens/home/new_note_form.dart';
 import 'package:todoApp/screens/home/note_list.dart';
 import 'package:todoApp/services/auth.dart';
 import 'package:todoApp/services/database.dart';
+import 'package:todoApp/shared.dart/show_note_panel.dart';
 
 class Home extends StatelessWidget {
+
   final AuthService _auth = AuthService();
 
-  @override
+   @override
   Widget build(BuildContext context) {
 
     final user = Provider.of<CustomUser>(context);
     final DatabaseService databaseService = DatabaseService(uid: user.uid);
     Note test = Note(title: 'Grundversorgung', mainPart: 'Pizza kaufen');
 
-    void _showNewNotePanel(){
-      showModalBottomSheet(
-        context: context,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)), 
-        backgroundColor: darkGreyColor,
-        builder: (context) {
-          return Container(
-            height: 350.0,
-            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-            child: NoteForm(),
-          );
-      });
-    }
+    // void _showNewNotePanel(){
+    //   showModalBottomSheet(
+    //     context: context,
+    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)), 
+    //     backgroundColor: darkGreyColor,
+    //     builder: (context) {
+    //       return Container(
+    //         height: 350.0,
+    //         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+    //         child: NoteForm(),
+    //       );
+    //   });
+    // }
 
     return StreamProvider<List<Note>>.value(
       value: databaseService.notes,
@@ -71,7 +73,7 @@ class Home extends StatelessWidget {
                 backgroundColor: redColor,
                 onPressed: () async {
                   // await DatabaseService(uid: user.uid).addNote(test);
-                  _showNewNotePanel();
+                  NotePanel(add: true).showNewNotePanel(context);
                 }
               ),
             ),

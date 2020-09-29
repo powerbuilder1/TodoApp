@@ -7,6 +7,12 @@ import 'package:todoApp/models/note.dart';
 import 'package:todoApp/shared.dart/constants.dart';
 
 class NoteForm extends StatefulWidget {
+
+  final dynamic note;
+  final bool add;
+
+  NoteForm( {this.note, this.add} );
+
   @override
   _NoteFormState createState() => _NoteFormState();
 }
@@ -36,32 +42,34 @@ class _NoteFormState extends State<NoteForm> {
           ),
           SizedBox(height: 50.0),
           TextFormField(
+            initialValue: widget.note != null ? widget.note.title : '',
             decoration: textInputDecoration.copyWith(hintText: 'Title'),
             validator: (val) => val.isEmpty ? 'Please enter a title' : null,
             onChanged: (val) => setState(() => title = val)
           ),
           SizedBox(height: 20.0),
           TextFormField(
+            initialValue: widget.note != null ? widget.note.mainPart : '',
             decoration: textInputDecoration.copyWith(hintText: 'Note'), 
             validator: (val) => val.isEmpty ? 'Please enter a note' : null,
             onChanged: (val) => setState(() => mainPart = val)
           ),
           SizedBox(height: 20.0),
           RaisedButton.icon(
-            color: redColor,
-            icon: Icon(
-              Icons.add,
-              ),
-            label: Text(
-              'Add',
-              ),
+            color: widget.add ? redColor : Colors.yellow[900],
+            icon: widget.add ? Icon(Icons.add) : Icon(Icons.edit),
+            label: widget.add ? Text('Add') : Text('Edit'),
             onPressed: () async {
               if(_formKey.currentState.validate()){
-                await DatabaseService(uid: user.uid).addNote(Note(
-                  title: title,
-                  mainPart: mainPart,
-                ));
-                Navigator.pop(context);
+                if(widget.add == true){
+                  await DatabaseService(uid: user.uid).addNote(Note(
+                    title: title,
+                    mainPart: mainPart,
+                  ));
+                  Navigator.pop(context);
+                } else {
+                  // edit fuc form DatabaseService
+                }
               }
             }
           ),

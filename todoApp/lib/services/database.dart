@@ -38,6 +38,7 @@ class DatabaseService {
     return userCollection.doc(uid).collection('notes').add({
       'title': note.title,
       'mainPart': note.mainPart,
+      'finished': note.finished,
     });
   }
 
