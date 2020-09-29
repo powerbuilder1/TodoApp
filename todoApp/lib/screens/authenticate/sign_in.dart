@@ -52,6 +52,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Enter your Password',
                 ),
