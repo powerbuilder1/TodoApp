@@ -49,4 +49,11 @@ class DatabaseService {
     });
   }
 
+  // edite Note
+  Future editNote(Note note, String userId) async {
+    return userCollection.doc(userId).collection('notes').doc(note.id).set({
+      'title': note.title,
+      'mainPart': note.mainPart,
+    }, SetOptions(merge: true));
+  }
 }
