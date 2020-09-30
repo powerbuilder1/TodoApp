@@ -3,18 +3,18 @@ import 'package:todoApp/models/global.dart';
 
 Widget slideRightBackground() {
   return Container(
-    color: Colors.green,
+    color: Colors.red,
     child: Align(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(width: 20),
           Icon(
-            Icons.edit,
+            Icons.delete,
             color: Colors.white,
           ),
           Text(
-            ' Edit',
+            ' Delete',
             style: slideText,
             textAlign: TextAlign.left,
           ),

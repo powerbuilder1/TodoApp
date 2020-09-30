@@ -35,7 +35,7 @@ class DatabaseService {
 
   // add Note 
   Future addNote(Note note) async {
-    return userCollection.doc(uid).collection('notes').add({
+    return await userCollection.doc(uid).collection('notes').add({
       'title': note.title,
       'mainPart': note.mainPart,
       'finished': note.finished,
@@ -43,17 +43,25 @@ class DatabaseService {
   }
 
   // remove Note
-  Future removeNote(String id) async {
-    return userCollection.doc(uid).collection('notes').doc(id).delete().then((_) {
+  Future removeNote(String noteId) async {
+    return await userCollection.doc(uid).collection('notes').doc(noteId).delete().then((_) {
       print('success!');
     });
   }
 
   // edite Note
-  Future editNote(Note note, String userId) async {
-    return userCollection.doc(userId).collection('notes').doc(note.id).set({
-      'title': note.title,
-      'mainPart': note.mainPart,
-    }, SetOptions(merge: true));
+  Future editNote(Note note, String noteId) async {
+    Map<String, dynamic> data = {};
+    if(note.title != null && note.mainPart != null){
+      data['title'] = note.title;
+      data['mainPart'] = note.mainPart;
+    } else if(note.title != null && note.mainPart == null) {
+      data['title'] = note.title;
+    } else if(note.title == null && note.mainPart != null) {
+      data['mainPart'] = note.mainPart;
+    } else {
+      return null;
+    }
+    return await userCollection.doc(uid).collection('notes').doc(noteId).update(data);
   }
 }

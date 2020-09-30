@@ -1,7 +1,7 @@
 class Note {
 
-  final String title;
-  final String mainPart;
+  final dynamic title;
+  final dynamic mainPart;
   final bool finished;
   // id of the db document
   final String id;

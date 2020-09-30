@@ -8,22 +8,26 @@ class NotePanel {
 
   final Note note;
   final bool add;
+  final String noteId;
 
-  NotePanel( {this.note, this.add} );
+  NotePanel( {this.note, this.add, this.noteId} );
 
   void showNewNotePanel(BuildContext context){
       showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)), 
         backgroundColor: darkGreyColor,
         builder: (context) {
-          return Container(
-            height: 350.0,
-            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-            child: NoteForm(note: note != null ? note : null, add: add),
+          return SingleChildScrollView(
+            child: Container(
+              // height: 350.0,
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom, top: 30.0, left: 60.0, right: 60.0),
+              // padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+              child: NoteForm(note: note != null ? note : null, add: add, noteId: noteId),
+            )
           );
-      }).whenComplete(() => NoteList.of(context).setState(() => {})
-     );
+      });
   }
 }
 

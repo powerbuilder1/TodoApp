@@ -10,8 +10,9 @@ class NoteForm extends StatefulWidget {
 
   final dynamic note;
   final bool add;
+  final String noteId;
 
-  NoteForm( {this.note, this.add} );
+  NoteForm( {this.note, this.add, this.noteId} );
 
   @override
   _NoteFormState createState() => _NoteFormState();
@@ -21,20 +22,21 @@ class _NoteFormState extends State<NoteForm> {
 
   final _formKey = GlobalKey<FormState>();
 
-  String title;
-  String mainPart;
+  dynamic title;
+  dynamic mainPart;
 
   @override
   Widget build(BuildContext context) {
 
     final user = Provider.of<CustomUser>(context);
+    final DatabaseService databaseService = DatabaseService(uid: user.uid);
 
     return Form(
       key: _formKey,
       child: Column(
         children: [
           Text(
-            'Add a new note',
+            widget.add ? 'Add a new note' : 'Edit note',
             style: TextStyle(
               fontSize: 25.0,
               color: Colors.white,
@@ -62,17 +64,24 @@ class _NoteFormState extends State<NoteForm> {
             onPressed: () async {
               if(_formKey.currentState.validate()){
                 if(widget.add == true){
-                  await DatabaseService(uid: user.uid).addNote(Note(
+                  await databaseService.addNote(Note(
                     title: title,
                     mainPart: mainPart,
                   ));
                   Navigator.pop(context);
                 } else {
-                  // edit fuc form DatabaseService
+                  print(title);
+                  print(mainPart);
+                  await databaseService.editNote(Note(
+                    title: title,
+                    mainPart: mainPart,
+                  ), widget.noteId);
+                  Navigator.pop(context);
                 }
               }
             }
           ),
+          SizedBox(height: 20.0)
         ],
       )
     ); 

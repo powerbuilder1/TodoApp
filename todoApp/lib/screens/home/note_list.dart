@@ -7,6 +7,7 @@ import 'package:todoApp/screens/home/modules/slidingBackground.dart';
 import 'package:todoApp/screens/home/note_tile.dart';
 import 'package:todoApp/services/database.dart';
 import 'package:todoApp/shared.dart/show_note_panel.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class NoteList extends StatefulWidget {
   static _NoteListState of(BuildContext context, {bool root = false}) => root
@@ -38,21 +39,55 @@ class _NoteListState extends State<NoteList> {
                   color: Colors.white,
                 ),
               ),
-              Dismissible(
-              key: Key(notes[index].id),
-              background: slideRightBackground(),
-              secondaryBackground: slideLeftBackground(),
-              onDismissed: (direction) {
-                if(direction == DismissDirection.endToStart){
-                  DatabaseService(uid: user.uid).removeNote(notes[index].id);
-                } else if(direction == DismissDirection.startToEnd) {
-                  notes.removeAt(index);
-                  NotePanel(note: notes[index], add: false).showNewNotePanel(context);
-                  print('Edit');
-                }
-              },
-              child: NoteTile(note: notes[index])
-            ),
+              Slidable(
+                actionPane: SlidableDrawerActionPane(),
+                actionExtentRatio: 0.25,
+                child: NoteTile(note: notes[index]),               
+                actions: <Widget>[
+                  IconSlideAction(
+                    caption: 'Edit',
+                    color: Colors.yellow[900],
+                    icon: Icons.edit,
+                    onTap: () => {
+                      NotePanel(note: notes[index], add: false, noteId: notes[index].id).showNewNotePanel(context)
+                    },
+                  ),
+                  IconSlideAction(
+                    caption: 'Share',
+                    color: Colors.indigo,
+                    icon: Icons.share,
+                    onTap: () => {},
+                  ),
+                ],
+                secondaryActions: <Widget>[
+                  IconSlideAction(
+                    caption: 'More',
+                    color: Colors.black45,
+                    icon: Icons.more_horiz,
+                    onTap: () => {},
+                  ),
+                  IconSlideAction(
+                    caption: 'Delete',
+                    color: Colors.red,
+                    icon: Icons.delete,
+                    onTap: () => {
+                      DatabaseService(uid: user.uid).removeNote(notes[index].id)
+                    },
+                  ),
+                ],
+              )
+            //   Dismissible(
+            //   key: Key(notes[index].id),
+            //   background: slideRightBackground(),
+            //   secondaryBackground: slideLeftBackground(),
+            //   onDismissed: (direction) {
+            //     DatabaseService(uid: user.uid).removeNote(notes[index].id);
+            //     // notes.removeAt(index);
+            //     // NotePanel(note: notes[index], add: false, noteId: notes[index].id).showNewNotePanel(context);
+            //     // print('Edit');
+            //   },
+            //   child: NoteTile(note: notes[index])
+            // ),
             ]
           );
         }
