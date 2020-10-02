@@ -10,9 +10,6 @@ import 'package:todoApp/shared.dart/show_note_panel.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class NoteList extends StatefulWidget {
-  static _NoteListState of(BuildContext context, {bool root = false}) => root
-      ? context.findRootAncestorStateOfType<_NoteListState>()
-      : context.findAncestorStateOfType<_NoteListState>();  
     
   @override
   _NoteListState createState() => _NoteListState();
@@ -23,8 +20,8 @@ class _NoteListState extends State<NoteList> {
   Widget build(BuildContext context) {
 
     final notes = Provider.of<List<Note>>(context);
-    final user = Provider.of<CustomUser>(context);
 
+    final user = Provider.of<CustomUser>(context);
 
     try {
       return ListView.builder(

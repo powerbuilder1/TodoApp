@@ -21,14 +21,15 @@ class DatabaseService {
       return Note(
         title: doc.data()['title'],
         mainPart: doc.data()['mainPart'],
+        finished: doc.data()['finished'],
         id: doc.id,
       );
     }).toList();
   }
 
-  // get notes stream
+  // get notes (notfinished) stream
   Stream<List<Note>> get notes {
-    return userCollection.doc(uid).collection('notes').snapshots().map((snapshot) {
+    return userCollection.doc(uid).collection('notes').where('finished', isEqualTo: false).snapshots().map((snapshot) {
       return _noteFromSnapshot(snapshot);
     }); 
   }
@@ -38,7 +39,7 @@ class DatabaseService {
     return await userCollection.doc(uid).collection('notes').add({
       'title': note.title,
       'mainPart': note.mainPart,
-      'finished': note.finished,
+      'finished': false,
     });
   }
 
@@ -59,9 +60,12 @@ class DatabaseService {
       data['title'] = note.title;
     } else if(note.title == null && note.mainPart != null) {
       data['mainPart'] = note.mainPart;
-    } else {
-      return null;
     }
+    
+    if(note.finished != null) {
+      data['finished'] = note.finished;
+    }
+
     return await userCollection.doc(uid).collection('notes').doc(noteId).update(data);
   }
 }
