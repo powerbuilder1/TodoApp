@@ -44,7 +44,7 @@ TextStyle redTodoTitle = new TextStyle(
   fontFamily: 'Avenir', 
   fontWeight: FontWeight.bold, 
   color: redColor, 
-  fontSize: 30
+  fontSize: 30,
 );
 
 TextStyle redBoldText = new TextStyle(

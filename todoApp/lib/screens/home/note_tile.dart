@@ -24,13 +24,16 @@ class _NoteTileState extends State<NoteTile> {
     final user = Provider.of<CustomUser>(context);
 
     return Container(
-      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.3),
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2),
       alignment: Alignment.topLeft,
       width: MediaQuery.of(context).size.width,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Checkbox(
             value: checkedValue,
+            activeColor: redColor,
+
             onChanged: (newValue) async {
               setState(() {
                 checkedValue = newValue;
@@ -38,11 +41,18 @@ class _NoteTileState extends State<NoteTile> {
               if (newValue) {
                 print('edit');
                 print(widget.note.id);
+                await Future.delayed(Duration(milliseconds: 500));
+                setState(() {
+                  checkedValue = !newValue;
+                });
+                await Future.delayed(Duration(milliseconds: 200));
                 await DatabaseService(uid: user.uid).editNote(Note(finished: true), widget.note.id);
               }
             },
           ), 
+          SizedBox(width: MediaQuery.of(context).size.width * 0.05),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 widget.note.title,
