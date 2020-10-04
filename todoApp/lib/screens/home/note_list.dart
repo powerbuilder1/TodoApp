@@ -6,7 +6,7 @@ import 'package:todoApp/screens/home/home.dart';
 import 'package:todoApp/screens/home/modules/slidingBackground.dart';
 import 'package:todoApp/screens/home/note_tile.dart';
 import 'package:todoApp/services/database.dart';
-import 'package:todoApp/shared.dart/show_note_panel.dart';
+import 'package:todoApp/shared/show_note_panel.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class NoteList extends StatefulWidget {

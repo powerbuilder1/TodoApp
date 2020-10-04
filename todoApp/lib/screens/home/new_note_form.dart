@@ -4,7 +4,7 @@ import 'package:todoApp/models/global.dart';
 import 'package:todoApp/models/user.dart';
 import 'package:todoApp/services/database.dart';
 import 'package:todoApp/models/note.dart';
-import 'package:todoApp/shared.dart/constants.dart';
+import 'package:todoApp/shared/constants.dart';
 
 class NoteForm extends StatefulWidget {
 

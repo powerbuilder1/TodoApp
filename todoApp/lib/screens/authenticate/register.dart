@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todoApp/services/auth.dart';
+import 'package:todoApp/shared/loading.dart';
 
 class Register extends StatefulWidget {
 
@@ -18,9 +19,11 @@ class _RegisterState extends State<Register> {
   String email = "";
   String password = "";
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -66,8 +69,15 @@ class _RegisterState extends State<Register> {
                 child: Text('Register'),
                 onPressed: () async {
                   if(_formKey.currentState.validate()){
+                    setState(() {
+                      loading = true;
+                    });
                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-                    print(result);
+                    if(result == null) {
+                      setState(() {
+                        loading = false;
+                      });
+                    }
                   }
                 } 
               )

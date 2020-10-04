@@ -7,7 +7,7 @@ import 'package:todoApp/screens/home/new_note_form.dart';
 import 'package:todoApp/screens/home/note_list.dart';
 import 'package:todoApp/services/auth.dart';
 import 'package:todoApp/services/database.dart';
-import 'package:todoApp/shared.dart/show_note_panel.dart';
+import 'package:todoApp/shared/show_note_panel.dart';
 
 class Home extends StatelessWidget {
 
