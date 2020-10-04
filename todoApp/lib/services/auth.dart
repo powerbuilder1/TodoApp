@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:todoApp/models/user.dart';
 
 class AuthService {
@@ -21,8 +22,8 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User firebaseUser = result.user;
       return _customUserFromFirebaseUser(firebaseUser);
-    }catch(e){
-      print(e.toString());
+    }on FirebaseAuthException catch (e) {
+      print(e.message);
       return null;
     }
   }
@@ -30,7 +31,10 @@ class AuthService {
   // signIn with email an password
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password).catchError((error) {
+        print(error);
+        return null;
+      });
       User user = result.user;
       return user;
     } catch(e) {

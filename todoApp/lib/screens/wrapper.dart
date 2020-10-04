@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todoApp/models/user.dart';
 import 'package:todoApp/screens/authenticate/authenticate.dart';
 import 'package:todoApp/screens/home/home.dart';
+import 'package:todoApp/screens/index/index.dart';
 
 class Wrapper extends StatelessWidget {
   @override
@@ -13,7 +14,8 @@ class Wrapper extends StatelessWidget {
     if(user != null) {
       return Home();
     } else {
-      return Authenticate();
+      return Index();
+      // return Authenticate(showSignIn: true);
     }
   }
 } 

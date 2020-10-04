@@ -18,6 +18,7 @@ class _RegisterState extends State<Register> {
 
   String email = "";
   String password = "";
+  String error = '';
 
   bool loading = false;
 
@@ -75,12 +76,21 @@ class _RegisterState extends State<Register> {
                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                     if(result == null) {
                       setState(() {
+                        error = 'please supply a valid email';
                         loading = false;
                       });
                     }
                   }
                 } 
-              )
+              ),
+              SizedBox(height: 12.0),
+              Text(
+                error,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 14.0,
+                )
+              ),
             ],
           ),
         ),

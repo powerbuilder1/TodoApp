@@ -44,6 +44,7 @@ class _NoteFormState extends State<NoteForm> {
           ),
           SizedBox(height: 50.0),
           TextFormField(
+            maxLength: 10,
             initialValue: widget.note != null ? widget.note.title : '',
             decoration: textInputDecoration.copyWith(hintText: 'Title'),
             validator: (val) => val.isEmpty ? 'Please enter a title' : null,
@@ -51,6 +52,7 @@ class _NoteFormState extends State<NoteForm> {
           ),
           SizedBox(height: 20.0),
           TextFormField(
+            //maxLength: 10,
             initialValue: widget.note != null ? widget.note.mainPart : '',
             decoration: textInputDecoration.copyWith(hintText: 'Note'), 
             validator: (val) => val.isEmpty ? 'Please enter a note' : null,

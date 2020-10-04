@@ -24,7 +24,7 @@ class _NoteTileState extends State<NoteTile> {
     final user = Provider.of<CustomUser>(context);
 
     return Container(
-      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2),
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.15),
       alignment: Alignment.topLeft,
       width: MediaQuery.of(context).size.width,
       child: Row(
@@ -59,10 +59,13 @@ class _NoteTileState extends State<NoteTile> {
                 style: redTodoTitle,
                 ),
               SizedBox(height: 5.0),
-              Text(
-                widget.note.mainPart,
-                style: redText,
+              Container(
+                width: MediaQuery.of(context).size.width * 0.55,
+                child: Text(
+                  widget.note.mainPart,
+                  style: redText,
                 ),
+              ),
             ],
           ),
         ],
