@@ -15,6 +15,7 @@ class _IndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
 
+
     final mq = MediaQuery.of(context).size;
    
       return Scaffold(
@@ -75,6 +76,7 @@ class _IndexState extends State<Index> {
               height: mq.height * 0.85,
               decoration: BoxDecoration(
                 image: DecorationImage(
+                  // Bild von fotografierende auf Pixabay
                   image: AssetImage('assets/index1.jpg'),
                   fit: BoxFit.fill,
                 ),
@@ -106,7 +108,7 @@ class _IndexState extends State<Index> {
                       ),
                     ),
                     Text(
-                      'to an minimalistic note app.',
+                      'to a minimalistic note app.',
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.white70,
