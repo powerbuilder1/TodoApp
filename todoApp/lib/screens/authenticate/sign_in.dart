@@ -73,6 +73,7 @@ class _SignInState extends State<SignIn> {
                       loading = true;
                     });
                     dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                    Navigator.pop(context);
                     if(result == null) {
                       setState(() {
                         loading = false;
