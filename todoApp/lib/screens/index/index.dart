@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:todoApp/models/global.dart';
 import 'package:todoApp/screens/authenticate/authenticate.dart';
+import 'package:todoApp/services/streams.dart';
 
 class Index extends StatefulWidget {
   @override
@@ -9,11 +12,27 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
 
+  Image myImage;
+
+  @override
+  void initState() {
+    super.initState();
+    myImage = Image.asset('assets/login1.jpg');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(myImage.image, context);
+  }
+
   bool showLogin = false;
   bool showRegister = false;
 
   @override
   Widget build(BuildContext context) {
+
+    ImageService().addImage(myImage);
 
 
     final mq = MediaQuery.of(context).size;

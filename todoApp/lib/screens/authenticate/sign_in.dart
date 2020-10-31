@@ -14,6 +14,11 @@ SignIn({this.toggleView});
 
 class _SignInState extends State<SignIn> {
 
+  
+
+  Image myImage;
+
+
   final _formKey = GlobalKey<FormState>();
   final _auth = AuthService();
 
@@ -24,6 +29,8 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+
+    ImageProvider login = AssetImage('assets/login1.jpg');
 
     final mq  = MediaQuery.of(context).size;
 
@@ -47,9 +54,11 @@ class _SignInState extends State<SignIn> {
                               color: Colors.white,
                             )
                             ),
+                          SizedBox(width: mq.width * 0.02),
                           Icon(
                             Icons.arrow_forward,
                             color: Colors.white,
+                            size: 30.0,
                             ),
                         ],
                       ),
@@ -59,35 +68,14 @@ class _SignInState extends State<SignIn> {
                               loading = true;
                             });
                             dynamic result = await _auth.signInWithEmailAndPassword(email, password);
-                            Navigator.pop(context);
                             if(result == null) {
                               setState(() {
                                 loading = false;
                               });
                             }
+                            Navigator.pop(context);
                           }
                         }
-                    ),
-                    SizedBox(width: mq.width * 0.15),
-                    FlatButton(
-                      child: Row(
-                        children: [
-                          Text(
-                            'NEW',
-                            style: TextStyle(
-                                color: Colors.white,
-                              )
-                            ),
-                          Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            ),
-                        ],
-                      ),
-                      onPressed: () {
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => Authenticate(showSignIn: false)));
-                        widget.toggleView();
-                      },
                     ),
                   ],
                 ),
@@ -98,8 +86,9 @@ class _SignInState extends State<SignIn> {
                 height: mq.height * 0.85,
                 decoration: BoxDecoration(
                   image: DecorationImage(
+
                     // Bild von fotografierende auf Pixabay
-                    image: AssetImage('assets/login1.jpg'),
+                    image: login,
                     fit: BoxFit.fill,
                   ),
                   borderRadius: BorderRadius.only(
@@ -137,7 +126,7 @@ class _SignInState extends State<SignIn> {
                           decoration: TextDecoration.none,
                         ),
                       ),
-                      SizedBox(height: mq.height * 0.08,),
+                      SizedBox(height: mq.height * 0.04,),
                       Container(
                         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                         child: Form(
@@ -146,6 +135,9 @@ class _SignInState extends State<SignIn> {
                             children: [
                               SizedBox(height: 20.0),
                               TextFormField(
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                                 decoration: InputDecoration(
                                   labelText: 'Enter your Email',
                                   labelStyle: TextStyle(
@@ -159,13 +151,15 @@ class _SignInState extends State<SignIn> {
                               ),
                               SizedBox(height: 20.0),
                               TextFormField(
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                                 obscureText: true,
                                 decoration: InputDecoration(
                                   labelText: 'Enter your Password',
                                   labelStyle: TextStyle(
                                     color: Colors.white,
                                   ),
-                                  alignLabelWithHint: true,
                                 ),
                                 validator: (val) => val.length < 6 ? 'Password min. 6 chars' : null, 
                                 onChanged: (val) {
